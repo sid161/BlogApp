@@ -1,0 +1,12 @@
+.sec-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+.login-sec form {
+    background-color: #5cb85c;
+    padding: 1rem;
+    max-width: 400px;
+    margin: 10rem auto;
+    border-radius: 10px;
+}
