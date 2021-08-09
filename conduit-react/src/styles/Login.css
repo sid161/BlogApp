@@ -10,3 +10,7 @@
     margin: 10rem auto;
     border-radius: 10px;
 }
+.error{
+    color: tomato;
+    font-size: 1rem;
+}

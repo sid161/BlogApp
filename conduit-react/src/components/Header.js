@@ -1,6 +1,6 @@
 
 import React from 'react';
-import  { Link } from 'react-router-dom';
+import  { NavLink } from 'react-router-dom';
 
 
 class Header extends React.Component{
@@ -19,32 +19,32 @@ class Header extends React.Component{
                 
             <ul className = "flex header-nav">
             
-            <Link
+            <NavLink
                   className='btn btn-sec'
                   to='/'
                   activeClassName='active'
                 >
                 Home
-                </Link>
+                </NavLink>
             
               
-                   <Link
+                   <NavLink
                    className='btn btn-sec'
                    to='/login'
                    activeClassName='active'
                  >
                  Login
-                 </Link>
+                 </NavLink>
 
             
            
-                  <Link
+                  <NavLink
                   className='btn btn-sec'
                   to='/signup'
                   activeClassName='active'
 
                > Signup
-                </Link>
+                </NavLink>
                 
              
             </ul>

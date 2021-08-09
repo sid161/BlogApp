@@ -7,9 +7,58 @@ class Login extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            email:"",
+            password:"",
+            errors:{
+                email:"",
+                password:"",
+            }
 
         }
     }
+    handleChange (event){
+        let {name,value} = event.target
+        let errors = [...this.state.error]
+
+        switch(name) {
+            case 'email':
+            let emailError = 
+            value.indexOF('@') === -1 ? 'Email does not contain @ ' : '';
+            errors.email = emailError;
+            break;
+            default:
+                return errors;
+            
+        }
+
+        switch(name){
+            case 'password':
+            let passwordError;
+            if(value.length < 7){
+                passwordError = "password should be more than 6 char";
+               let reg = /"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/
+               if(!reg.test(value)){
+                   passwordError = "password should be more than 6 char"
+                   errors.password = passwordError
+               }
+              
+            } 
+            break
+            default:
+                return errors;
+            
+        }
+        this.setState({
+            [name]: value,errors
+        })
+    }
+    handleSubmit(event){
+        event.preventDefault();
+    }
+
+
+
+
     render(){
         return(
             <>
@@ -18,17 +67,19 @@ class Login extends React.Component{
                 <section className= "login-sec">
                     <h2 className = "sec-heading">Login Page</h2>
                     <div className = "container">
-                        <form>
+                        <form onSubmit = {this.handleSubmit}>
                             <fieldset>
                             <label>Enter Email</label>
-                            <input type = "email" name = "email" id = "loginEmail" value = "sid1610@gmail.com"/>
+                            <input type = "email" name = "email" id = "loginEmail" onChange = {this.handleChange} value = "sid1610@gmail.com"/>
+                            <span className = "error">{this.state.errors.email}</span>
                             </fieldset>
                             <fieldset>
                             <label>Enter Password</label>
-                            <input type = "password" name = "password" id = "loginPassword" value = "123456"/>
+                            <input type = "password" name = "password" onChange = {this.handleChange} id = "loginPassword" value = "123456"/>
+                            <span className = "error">{this.state.errors.password}</span>
                             </fieldset>
                             <fieldset type = "flex center">
-                                <button type = "submit" className = "btn btn-ter">Submit</button>
+                                <button type = "submit" disabled = {this.state.errors.email || this.state.errors.password} className = "btn btn-ter">Submit</button>
 
                             </fieldset>
                         </form>
