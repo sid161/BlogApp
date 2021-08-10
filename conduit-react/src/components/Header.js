@@ -19,7 +19,21 @@ class Header extends React.Component{
                 
             <ul className = "flex header-nav">
             
-            <NavLink
+            
+                
+             
+            </ul>
+            </div>
+            </header>
+            </>
+        )
+    }
+}
+
+function NonAuthHeader(){
+   return(
+       <>
+        <NavLink
                   className='btn btn-sec'
                   to='/'
                   activeClassName='active'
@@ -45,14 +59,15 @@ class Header extends React.Component{
 
                > Signup
                 </NavLink>
-                
-             
-            </ul>
-            </div>
-            </header>
-            </>
-        )
-    }
+       </>
+   )
+}
+
+function AuthHeader(){
+    return(
+        <>
+        </>
+    )
 }
 
 

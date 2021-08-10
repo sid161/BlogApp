@@ -1,7 +1,9 @@
 
 import React from 'react';
 import '../styles/Login.css'
+import { signupURL } from '../utils/constant';
 //  import {Route} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 class Signup extends React.Component{
     constructor(props){
@@ -20,6 +22,24 @@ class Signup extends React.Component{
 
     handlesubmit(event){
         event.preventDefault();
+        const { username, email,password} = this.state
+        fetch(signupURL, {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({use:{username,email,password}})
+        }).then((res) => {
+            if(!res.ok){
+                res.json().then(({errors}) => this.setState({errors}))
+            }
+            return res.json()
+        }).then( ({user}) => {
+            this.props.updateUser(user)
+            this.setState({username:"",password:"",email:""})
+            this.props.history.push('/')
+        }
+        )
     }
 
     handleChange(event){
@@ -67,4 +87,4 @@ class Signup extends React.Component{
     }
 }
 
-export default Signup;
+export default withRouter(Signup);

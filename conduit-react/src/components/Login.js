@@ -1,6 +1,9 @@
 import React from 'react';
 import '../styles/Login.css'
 // import {Route} from 'react-router-dom'
+import { loginURL } from '../utils/constant';
+import { withRouter} from 'react-router-dom'
+
 
 
 class Login extends React.Component{
@@ -54,6 +57,24 @@ class Login extends React.Component{
     }
     handleSubmit(event){
         event.preventDefault();
+        const {  email,password} = this.state
+        fetch(loginURL, {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({use:{email,password}})
+        }).then((res) => {
+            if(!res.ok){
+                res.json().then(({errors}) => this.setState({errors}))
+            }
+            return res.json()
+        }).then( ({user}) => {
+            this.props.updateUser(user)
+            this.setState({password:"",email:""})
+            this.props.history.push('/')
+        }
+        )
     }
 
 
@@ -91,4 +112,4 @@ class Login extends React.Component{
     }
 }
 
-export default Login
+export default withRouter(Login)

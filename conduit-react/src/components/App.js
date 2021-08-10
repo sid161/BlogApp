@@ -10,21 +10,48 @@ import SinglePost from './SinglePost';
 import Home from './Home';
 import Signup from './Signup';
 import NoMatch from './NoMatch'
+import React from 'react';
+import { localStorageKey } from '../utils/constant';
 
 
-function App() {
-  return (
+class App extends React.component {
+  state = {
+    isLoggedIn:false,
+    user:null
+  }
+
+  componentDidMount(){
+    let storageKey = localStorageKey[localStorageKey]
+    if(key){
+      fetch(userVerifyURL, {
+        method:"GET",
+        headers:{
+          "authorisation":`Token ${storageKey}`
+        }
+    
+    
+    }).then(res => res.json()).then(({user}) => console.log({user}))
+  
+  }
+
+  updateUser = (user) => {
+    this.setstate({isLoggedIn:true, user})
+    localStorage.setItem(localStorageKey,user.token)
+  }
+  render(){
+    return(
       <>
+     
       <BrowserRouter>
-       <Header/>
+       <Header isLoggedIn = {this.state.isLoggedIn} user = {this.state.user}/>
        <Route exact path = '/'>
          <Home/>
        </Route>
        <Route exact path = "/login">
-         <Login/>
+         <Login updateUser = {this.updateUser}/>
          </Route>
         <Route exact path = "/signup">
-          <Signup/>
+          <Signup updateUser = {this.updateUser}/>
         </Route>
         <Route exact path = "/article/:slug" component = {SinglePost}>
           <singlePost/>
@@ -34,10 +61,13 @@ function App() {
         </Route>
         </BrowserRouter>
         
-
       </>
+    )
 
-  );
+  }
+  
+
+    
 }
 
 export default App;
