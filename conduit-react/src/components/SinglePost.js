@@ -2,6 +2,7 @@
 import React  from 'react';
 import {Link} from 'react-router-dom'
 import { articlesURL } from '../utils/constant';
+import {withRouter} from 'react-router-dom'
 
   class SinglePost extends React.Component{
       constructor(props){
@@ -72,4 +73,4 @@ import { articlesURL } from '../utils/constant';
 }
 
 
-export default SinglePost
+export default withRouter(SinglePost) 

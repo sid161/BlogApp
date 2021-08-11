@@ -43,7 +43,14 @@ class App extends React.component {
       <>
      
       <BrowserRouter>
-       <Header isLoggedIn = {this.state.isLoggedIn} user = {this.state.user}/>
+       <Header isLoggedIn = {this.state.isLoggedIn} user = {this.state.user}
+       {this.state.isLoggedIn ? (
+         <AuthenticatedApp user = {this.state.user} />
+
+       ):(
+         <UnauthenticatedApp updateUser = {this.updateUser} user = {this.state.user}/>
+       )}
+       />
        <Route exact path = '/'>
          <Home/>
        </Route>
@@ -69,5 +76,32 @@ class App extends React.component {
 
     
 }
+
+function  AuthenticatedApp(props) {
+  return(
+    <Switch>
+      <Route path = '/' exact>
+        <Home/>
+      </Route>
+      <Route path = '/new-post'>
+        <NewPost/>
+      </Route>
+      <Route path = '/settings'>
+        <Setting/>
+      </Route>
+      <Route path = '/profile'>
+        <Profile/>
+      </Route>
+      <Route path = '/article/:slug'>
+        <SinglePost user = {props.user}/>
+        </Route>
+       <Route path = "*">
+         <NoMatch/>
+      </Route>
+
+    </Switch>
+  )
+}
+
 
 export default App;
